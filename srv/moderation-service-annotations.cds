@@ -2,10 +2,10 @@ using ModerationService from './moderation-service';
 
 
 annotate ModerationService.ContentItem with {
-    ID                @title: 'ID'          @Core.Computed;
-    ownerApp          @title: 'Owner App';
-    contentText       @title: 'Content Text';
-    mediaType         @title: 'Media Type'  @(Common: {
+    ID                @title           : 'ID'          @Core.Computed;
+    ownerApp          @title           : 'Owner App';
+    contentText       @title           : 'Content Text';
+    mediaType         @title           : 'Media Type'  @(Common: {
         Text           : mediaType,
         TextArrangement: #TextOnly,
         ValueList      : {
@@ -18,10 +18,12 @@ annotate ModerationService.ContentItem with {
             }]
         }
     });
-    intentName        @title: 'Intent';
-    intentDescription @title: 'Description';
-    targetActionDate  @title: 'Target Action Date';
-    contentUrl        @Core.IsURL           @Core.MediaType: imageType;
+    intentName        @title           : 'Intent';
+    intentDescription @title           : 'Description';
+    targetActionDate  @title           : 'Target Action Date';
+    contentUrl        @UI.IsImageURL   : true
+                      @ImageType.Height: 100
+                      @ImageType.Width : 100;
 }
 
 annotate ModerationService.ContentItemAction with {
@@ -64,6 +66,7 @@ annotate ModerationService.ContentItem with @(UI: {
         {Value: ownerApp},
         {Value: intentName},
         {Value: intentDescription},
+        {Value: contentUrl},
         {Value: contentText},
         {Value: mediaType},
         {Value: targetActionDate}
