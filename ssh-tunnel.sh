@@ -1,0 +1,1 @@
+cf ssh -L 60606:postgres-b63a769d-5701-4b3e-a6e6-128b05658a21.cqryblsdrbcs.us-east-1.rds.amazonaws.com:5552 moderman
