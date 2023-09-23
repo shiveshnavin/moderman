@@ -1,7 +1,7 @@
 {
-  "name": "ui5-cap-event-app-ui-admin",
+  "name": "moderman-admin",
   "version": "0.0.0",
-  "description": "A simple UI5 CAP Event Application Admin UI",
+  "description": "A content moderation platform",
   "private": true,
   "scripts": {
     "clean": "rimraf dist",

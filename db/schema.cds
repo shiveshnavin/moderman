@@ -10,14 +10,19 @@ entity ContentItem : managed {
       ownerApp           : String(120);
       targetActionDate   : Date;
       contentItemActions : Composition of many ContentItemAction
-                             on contentItemActions.MainPerson = $self;
+                             on contentItemActions.contentItem = $self;
 }
 
 entity ContentItemAction : managed {
-  key ID               : UUID;
-      intentName       : String(100);
-      contentUrl       : String(100);
-      targetActionDate : Date;
-      mediaType        : String(120);
-      MainPerson       : Association to ContentItem;
+  key ID                  : UUID;
+      ownerApp            : String(100);
+      actionName          : String(100);
+      actionStatus        : String(100);
+      actionCompletedDate : Date;
+      actionUrl           : String(100);
+      actionHeaders       : String(100);
+      actionMethod        : String(100);
+      actonPayload        : String(4000);
+      actionType          : String(120);
+      contentItem         : Association to ContentItem;
 }
