@@ -4,10 +4,12 @@
   "description": "A simple CAP-based UI5 Event Application Server.",
   "private": true,
   "dependencies": {
+    "@cap-js/postgres": "^1.2.1",
     "@sap/cds": "^7.1.1",
+    "@sap/xssec": "^3.3.4",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "passport": "^0.6.0",
-    "sqlite3": "^5.1.6"
+    "passport": "^0.6.0"
   },
   "devDependencies": {
     "@sap/cds-dk": "^7",
@@ -23,11 +25,15 @@
   "cds": {
     "requires": {
       "db": {
-        "kind": "sql",
-        "model": [
-          "db",
-          "srv"
-        ]
+        "kind": "postgres",
+        "impl": "@cap-js/postgres",
+        "credentials": {
+          "host": "postgres-b63a769d-5701-4b3e-a6e6-128b05658a21.cqryblsdrbcs.us-east-1.rds.amazonaws.com",
+          "port": 5552,
+          "database": "MSCmHSauNVPQ",
+          "user": "0d4170068d6d",
+          "password": "735148685645884e57043cb06a1d9f28"
+        }
       }
     }
   }
