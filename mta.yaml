@@ -1,0 +1,40 @@
+_schema-version: '3.1'
+ID: ui5-cap-event-app-server
+version: 0.0.0
+description: "A simple CAP-based UI5 Event Application Server."
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npx cds build --production
+modules:
+  - name: ui5-cap-event-app-server-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: ui5-cap-event-app-server-db
+
+  - name: ui5-cap-event-app-server-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: ui5-cap-event-app-server-db
+
+resources:
+  - name: ui5-cap-event-app-server-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
