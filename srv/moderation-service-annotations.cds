@@ -2,18 +2,46 @@ using ModerationService from './moderation-service';
 
 
 annotate ModerationService.ContentItem with {
-    ID               @title: 'ID'  @Core.Computed;
-    ownerApp         @title: 'Owner App';
-    mediaType        @title: 'Media Type';
-    intentName       @title: 'Intent';
-    targetActionDate @title: 'Target Action Date';
+    ID                @title: 'ID'          @Core.Computed;
+    ownerApp          @title: 'Owner App';
+    contentText       @title: 'Content Text';
+    mediaType         @title: 'Media Type'  @(Common: {
+        Text           : mediaType,
+        TextArrangement: #TextOnly,
+        ValueList      : {
+            Label         : 'Action Type Help',
+            CollectionPath: 'MediaType',
+            Parameters    : [{
+                $Type            : 'Common.ValueListParameterInOut',
+                LocalDataProperty: mediaType,
+                ValueListProperty: 'mediaTypeName'
+            }]
+        }
+    });
+    intentName        @title: 'Intent';
+    intentDescription @title: 'Description';
+    targetActionDate  @title: 'Target Action Date';
+    contentUrl        @Core.IsURL           @Core.MediaType: imageType;
 }
 
 annotate ModerationService.ContentItemAction with {
-    ID                  @title: 'ID'  @Core.Computed;
+    ID                  @title: 'ID'           @Core.Computed;
     actionName          @title: 'Action name';
     ownerApp            @title: 'Owner App';
-    actionType          @title: 'Media Type';
+    actionDescription   @title: 'Action Description';
+    actionType
+                        @title: 'Action Type'  @(Common: {
+        Text     : actionType, // TextArrangement: #TextOnly,
+        ValueList: {
+            Label         : 'Action Type Help',
+            CollectionPath: 'ActionType',
+            Parameters    : [{
+                $Type            : 'Common.ValueListParameterInOut',
+                LocalDataProperty: actionType,
+                ValueListProperty: 'actionTypeName'
+            }]
+        }
+    });
     actionStatus        @title: 'Action Status';
     actionCompletedDate @title: 'Action Taken Date';
 }
@@ -33,8 +61,10 @@ annotate ModerationService.ContentItem with @(UI: {
         targetActionDate
     ],
     LineItem        : [
-        {Value: intentName},
         {Value: ownerApp},
+        {Value: intentName},
+        {Value: intentDescription},
+        {Value: contentText},
         {Value: mediaType},
         {Value: targetActionDate}
     ],
@@ -45,7 +75,7 @@ annotate ModerationService.ContentItem with @(UI: {
         Target: 'contentItemActions/@UI.LineItem'
     }],
     FieldGroup #Main: {Data: [
-        {Value: intentName},
+        {Value: intentDescription},
         {Value: mediaType},
         {Value: ownerApp},
         {Value: targetActionDate}
@@ -69,6 +99,7 @@ annotate ModerationService.ContentItemAction with @(UI: {
     ],
     LineItem        : [
         {Value: actionName},
+        {Value: actionDescription},
         {Value: ownerApp},
         {Value: actionType},
         {Value: actionStatus},
@@ -81,6 +112,7 @@ annotate ModerationService.ContentItemAction with @(UI: {
 
     FieldGroup #Main: {Data: [
         {Value: actionName},
+        {Value: actionDescription},
         {Value: ownerApp},
         {Value: actionType},
         {Value: actionStatus},
