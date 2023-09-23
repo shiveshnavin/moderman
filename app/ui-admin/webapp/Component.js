@@ -1,8 +1,8 @@
 /* global hasher */
-sap.ui.define(['sap/fe/core/AppComponent'], function(AppComponent) {
+sap.ui.define(['sap/fe/core/AppComponent'], function (AppComponent) {
     'use strict';
 
-    return AppComponent.extend('sap.ui.eventregistration.admin.Component', {
+    return AppComponent.extend('moderman.admin.Component', {
         metadata: {
             manifest: 'json'
         },
@@ -13,7 +13,7 @@ sap.ui.define(['sap/fe/core/AppComponent'], function(AppComponent) {
          * @public
          * @override
          */
-        init : function () {
+        init: function () {
             // call the AppComponent's init function
             AppComponent.prototype.init.apply(this, arguments);
 
@@ -24,22 +24,22 @@ sap.ui.define(['sap/fe/core/AppComponent'], function(AppComponent) {
         /**
          * Logs out the current user
          */
-        doLogout: function() {
+        doLogout: function () {
             jQuery.ajax({
                 type: "POST",
-                url: "/odata/v4/event-registration/logout",
+                url: "/odata/v4/moderation/logout",
                 async: false,
                 headers: { "Authorization": "Basic xxx" }
             })
-            .done(function() {
-                // this should not happen, as the server returns a 4401 error code
-            })
-            .fail(function(err) {
-                // 401 Unauthorized error means we are successfully logged out.
-                // This causes the browser to forget the credentials.
-                // Redirect to get a login box again.
-                window.location = "/index.html";
-            });
+                .done(function () {
+                    // this should not happen, as the server returns a 4401 error code
+                })
+                .fail(function (err) {
+                    // 401 Unauthorized error means we are successfully logged out.
+                    // This causes the browser to forget the credentials.
+                    // Redirect to get a login box again.
+                    window.location = "/index.html";
+                });
             return false;
         }
     });

@@ -1,19 +1,23 @@
-namespace sap.ui5.eventregistration;
-using { managed } from '@sap/cds/common';
+namespace moderman;
 
-entity Person : managed {
-  key ID         : UUID;
-  FirstName      : String(100);
-  LastName       : String(100);
-  Email          : String(120);
-  Birthday       : Date;
-  FamilyMembers  : Composition of many FamilyMember on FamilyMembers.MainPerson = $self;
+using {managed} from '@sap/cds/common';
+
+entity ContentItem : managed {
+  key ID                 : UUID;
+      intentName         : String(100);
+      contentUrl         : String(100);
+      mediaType          : String(100);
+      ownerApp           : String(120);
+      targetActionDate   : Date;
+      contentItemActions : Composition of many ContentItemAction
+                             on contentItemActions.MainPerson = $self;
 }
 
-entity FamilyMember : managed {
-  key ID       : UUID;
-  FirstName    : String(100);
-  LastName     : String(100);
-  Birthday     : Date;
-  MainPerson   : Association to Person;
+entity ContentItemAction : managed {
+  key ID               : UUID;
+      intentName       : String(100);
+      contentUrl       : String(100);
+      targetActionDate : Date;
+      mediaType        : String(120);
+      MainPerson       : Association to ContentItem;
 }

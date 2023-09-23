@@ -1,7 +1,7 @@
 {
     "_version": "1.15.0",
     "sap.app": {
-        "id": "sap.ui.eventregistration.admin",
+        "id": "moderman.admin",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -12,7 +12,7 @@
         "ach": "CA-UI5-FE",
         "dataSources": {
             "mainService": {
-                "uri": "/odata/v4/event-registration/",
+                "uri": "/odata/v4/moderation/",
                 "type": "OData",
                 "settings": {
                     "odataVersion": "4.0"
@@ -73,50 +73,50 @@
             "routes": [
                 {
                     "pattern": ":?query:",
-                    "name": "PersonList",
-                    "target": "PersonList"
+                    "name": "ContentItemList",
+                    "target": "ContentItemList"
                 },
                 {
-                    "pattern": "Person({key}):?query:",
-                    "name": "PersonObjectPage",
-                    "target": "PersonObjectPage"
+                    "pattern": "ContentItem({key}):?query:",
+                    "name": "ContentItemObjectPage",
+                    "target": "ContentItemObjectPage"
                 }
             ],
             "targets": {
-                "PersonList": {
+                "ContentItemList": {
                     "type": "Component",
-                    "id": "PersonList",
+                    "id": "ContentItemList",
                     "name": "sap.fe.templates.ListReport",
                     "options": {
                         "settings": {
-                            "entitySet": "Person",
+                            "entitySet": "ContentItem",
                             "variantManagement": "Page",
-                            "initialLoad": true, 
+                            "initialLoad": true,
                             "controlConfiguration": {
                                 "@com.sap.vocabularies.UI.v1.LineItem": {
-                                   "tableSettings": {
-                                      "type": "ResponsiveTable",
-                                      "enableExport": "true"
-                                   }
+                                    "tableSettings": {
+                                        "type": "ResponsiveTable",
+                                        "enableExport": "true"
+                                    }
                                 }
-                            },   
+                            },
                             "navigation": {
-                                "Person": {
+                                "ContentItem": {
                                     "detail": {
-                                        "route": "PersonObjectPage"
+                                        "route": "ContentItemObjectPage"
                                     }
                                 }
                             }
                         }
                     }
                 },
-                "PersonObjectPage": {
+                "ContentItemObjectPage": {
                     "type": "Component",
-                    "id": "PersonObjectPage",
+                    "id": "ContentItemObjectPage",
                     "name": "sap.fe.templates.ObjectPage",
                     "options": {
                         "settings": {
-                            "entitySet": "Person"
+                            "entitySet": "ContentItem"
                         }
                     }
                 }
